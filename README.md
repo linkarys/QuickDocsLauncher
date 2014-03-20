@@ -20,5 +20,5 @@ Commands
 Installation
 ------------
 - cd {user sublime folder}/Packages
-- git clone https://github.com/linkarys/Coldfusion-Docs-Launcher
+- git clone https://github.com/linkarys/CFDocsLauncher
 - Enjoy it!
