@@ -1,4 +1,4 @@
-Coldfusion-Docs-Launcher
+Coldfusion Docs Launcher
 =======================
 
 Provides a command for launching a coldfusion 10 quick doc search for the word at the cursor
