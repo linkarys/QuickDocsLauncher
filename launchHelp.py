@@ -6,8 +6,7 @@ class LaunchCfHelpCommand(sublime_plugin.TextCommand):
         for s in self.view.sel():
                 word = self.view.word( s )
         
-        s = sublime.load_settings("CfQuickDocs.sublime-settings")
-        cfVersion = s.get('cf_version', 'cf9')
+        s = sublime.load_settings("CFDocsLauncher.sublime-settings")
+        search_url = s.get('search_url', 'https://wikidocs.adobe.com/wiki/display/coldfusionen/')
 
-
-        webbrowser.open("http://cfquickdocs.com/" + cfVersion + "/#" + self.view.substr(word))
+        webbrowser.open(search_url + self.view.substr(word))
