@@ -1,82 +1,115 @@
 import sublime, sublime_plugin, webbrowser
 import subprocess
-import urllib
+import urllib.request as urllib
+import contextlib
+import json
+import os, re
+from html.parser import HTMLParser
+
+global settings
+
+def init_settings(self):
+    self.settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
+
+def get_syntax(view):
+    scope = view.scope_name(view.sel()[0].end())
+    res = re.search('\\bsource\\.([a-z+\-]+)', scope)
+    return res.group(1) if res else None
+
+def get_word(view):
+    return view.substr(view.word( view.sel()[0] ))
 
 class LaunchCfHelpCommand(sublime_plugin.TextCommand):
     def run(self, edit, forward = True):
-        word = ""
-        for s in self.view.sel():
-            word = self.view.word( s )
+        init_settings(self)
 
-        s = sublime.load_settings("CFDocsLauncher.sublime-settings")
-        doc_chanel = s.get('doc_chanel', 'https://wikidocs.adobe.com/wiki/display/coldfusionen/')
+        url = build_load_url(self)
 
-        webbrowser.open(doc_chanel + self.view.substr(word))
+        # if (len(word.strip())):
+        #     url += word.strip()
 
+        webbrowser.open(url)
+        # # print (filename, {'content': text}) for filename, text in list('abbbbc')
+        # # dict((filename, {'content': text}) for filename, text in list('abbbbc'))
+        # language = 'C'
+        # syntax = os.path.join('C++', "{0}.tmLanguage".format(language))
+        # file_loc = os.path.join(sublime.packages_path(), syntax)
+        # print (os.path.exists(file_loc))
+        # sublime.status_message("Gist: GitHub token isn't provided in Gist.sublime-settings file. All other authorization methods is deprecated.")
+def get_lan_settings(self):
+    syntax = get_syntax(self.view)
 
-class SearchCfDocsCommand(sublime_plugin.TextCommand, sublime_plugin.WindowCommand):
-    def show(self, index):
-        print (index)
+    return self.settings.get(syntax)
+
+def build_load_url(self):
+    keyword = get_word(self.view)
+    syntax = get_syntax(self.view)
+
+    lan_settings = self.settings.get(syntax)
+
+    if 'doc_url' in lan_settings:
+        url = lan_settings['doc_url']
+
+    edition = lan_settings['edition']
+
+    if syntax == 'python':
+        return url % edition
+
+def build_search_url(self):
+
+    keyword = get_word(self.view)
+    syntax = get_syntax(self.view)
+
+    lan_settings = self.settings.get(syntax)
+
+    if 'search_url' in lan_settings:
+        url = lan_settings['search_url']
+
+    edition = lan_settings['edition']
+
+    if syntax == 'python':
+        return url % (edition, keyword.strip())
+
+class SearchCfDocsCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        # word = ""
-        # for s in self.view.sel():
-        #     word = self.view.word( s )
+        init_settings(self)
 
-        settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
-        # search_chanel = s.get('search_chanel', 'https://wikidocs.adobe.com/wiki/dosearchsite.action?where=coldfusionen&search-filter-button=Filter&queryString=')
-        # sublime.error_message(search_chanel)
-        view = sublime.active_window().new_file()
-        # edit = view.begin_edit()
-        view.insert(edit, 0,'asdfasfasdfasd')
+        url = build_search_url(self)
 
-        url = "http://www.infolanka.com/miyuru_gee/art/art.html"
-        page = html.fromstring(urllib.urlopen(url).read())
+        webbrowser.open(url)
 
-        for link in page.xpath("//a"):
-            view.insert(edit, 0, x.text)
+class SearchInputCommand(sublime_plugin.TextCommand):
 
-        # self.window.run_command('exec', {'cmd': "launch_cf_help"})
+    def run(self, edit):
+
+        self.window.show_input_panel('Search Stack Overflow for', '',
+            self.on_done, self.on_change, self.on_cancel)
+        def on_done(self, input):
+            SearchFor(input)
+
+        def on_change(self, input):
+            pass
+
+        def on_cancel(self):
+            pass
+
+        # url = "http://www.baidu.com"
+        # parser = MyHTMLParser()
+        # try:
+        #     with contextlib.closing(urllib.urlopen(url)) as response:
+        #         if response.code == 204:  # No Content
+        #             return None
+        #         else:
+        #             parser.feed(response.read().decode('utf8', 'ignore'))
+        #             view.insert(edit, 0, parser.get_result())
+        #             # return json.loads(response.read().decode('utf8', 'ignore'))
+        # except urllib.HTTPError as err:
+        #     with contextlib.closing(err):
+        #         raise SimpleHTTPError(err.code, err.read())
+        # for link in page.xpath("//a"):
+        #     view.insert(edit, 0, x.text)
+
         # self.window.show_quick_panel(['abc', 'bac'], self.show)
-        # webbrowser.open(search_chanel + self.view.substr(word))
 
-    def api_request_curl(url, data=None, method=None):
-        command = ["curl", '-K', '-', url]
-        settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
-        config = ['--header "Authorization: token "',
-                  '--header "Accept: application/json"',
-                  '--header "Content-Type: application/json"',
-                  "--silent"]
 
-        if method:
-            config.append('--request "%s"' % method)
-
-        if settings.get('https_proxy'):
-            config.append(settings.get('https_proxy'))
-
-        with named_tempfile() as header_output_file:
-            config.append('--dump-header "%s"' % header_output_file.name)
-            header_output_file.close()
-            with named_tempfile() as data_file:
-                if data is not None:
-                    data_file.write(bytes(data.encode('utf8')))
-                    data_file.close()
-                    config.append('--data-binary "@%s"' % data_file.name)
-
-                process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                response, _ = process.communicate(bytes('\n'.join(config).encode('utf8')))
-                returncode = process.returncode
-
-                if returncode != 0:
-                    raise subprocess.CalledProcessError(returncode, 'curl')
-
-                with open(header_output_file.name, "r") as headers:
-                    _, responsecode, message = headers.readline().split(None, 2)
-                    responsecode = int(responsecode)
-
-                    if responsecode == 204:  # No Content
-                        return None
-                    elif 200 <= responsecode < 300 or responsecode == 100:  # Continue
-                        return json.loads(response.decode('utf8', 'ignore'))
-                    else:
-                        raise SimpleHTTPError(responsecode, response)

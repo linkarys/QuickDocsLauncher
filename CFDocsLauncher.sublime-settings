@@ -1,4 +1,16 @@
 {
-	"doc_chanel":"https://wikidocs.adobe.com/wiki/display/coldfusionen/",
-	"search_chanel":"https://wikidocs.adobe.com/wiki/dosearchsite.action?where=coldfusionen&search-filter-button=Filter&queryString="
+	"python": {
+		"doc_url": "http://docs.python.org/%s/library/",
+		"search_url": "http://docs.python.org/%s/search.html?check_keywords=yes&area=default&q=%s",
+		"edition": "3.4"
+	},
+	"cfscript": {
+		"doc_url": "https://wikidocs.adobe.com/wiki/display/coldfusionen/",
+		"search_url": "https://wikidocs.adobe.com/wiki/dosearchsite.action?where=coldfusionen&search-filter-button=Filter&queryString="
+	},
+	"php": {
+		"lan_pattern": "en",
+		"doc_url": "",
+		"search_url": "http://cn2.php.net/manual-lookup.php?scope=quickref&pattern="
+	}
 }
