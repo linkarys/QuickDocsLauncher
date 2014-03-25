@@ -6,10 +6,8 @@ import json
 import os, re
 from html.parser import HTMLParser
 
-global settings
-
-def init_settings(self):
-    self.settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
+class sys:
+    settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
 
 def get_syntax(view):
     scope = view.scope_name(view.sel()[0].end())
@@ -21,13 +19,11 @@ def get_word(view):
 
 class LaunchCfHelpCommand(sublime_plugin.TextCommand):
     def run(self, edit, forward = True):
-        init_settings(self)
 
         url = build_load_url(self)
 
         # if (len(word.strip())):
         #     url += word.strip()
-
         webbrowser.open(url)
         # # print (filename, {'content': text}) for filename, text in list('abbbbc')
         # # dict((filename, {'content': text}) for filename, text in list('abbbbc'))
@@ -39,13 +35,13 @@ class LaunchCfHelpCommand(sublime_plugin.TextCommand):
 def get_lan_settings(self):
     syntax = get_syntax(self.view)
 
-    return self.settings.get(syntax)
+    return sys.settings.get(syntax)
 
 def build_load_url(self):
     keyword = get_word(self.view)
     syntax = get_syntax(self.view)
 
-    lan_settings = self.settings.get(syntax)
+    lan_settings = sys.settings.get(syntax)
 
     if 'doc_url' in lan_settings:
         url = lan_settings['doc_url']
@@ -60,7 +56,7 @@ def build_search_url(self):
     keyword = get_word(self.view)
     syntax = get_syntax(self.view)
 
-    lan_settings = self.settings.get(syntax)
+    lan_settings = sys.settings.get(syntax)
 
     if 'search_url' in lan_settings:
         url = lan_settings['search_url']
@@ -73,8 +69,6 @@ def build_search_url(self):
 class SearchCfDocsCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        init_settings(self)
-
         url = build_search_url(self)
 
         webbrowser.open(url)
