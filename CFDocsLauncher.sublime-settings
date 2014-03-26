@@ -2,7 +2,8 @@
 	"python": {
 		"doc_url": "http://docs.python.org/%s/library/",
 		"search_url": "http://docs.python.org/%s/search.html?check_keywords=yes&area=default&q=%s",
-		"edition": "3.4"
+		"edition": "3.4",
+		"search_pattern": "http://docs.python.org/${edition:3.4}/search.html?check_keywords=yes&area=default&q=$keywork"
 	},
 	"cfscript": {
 		"doc_url": "https://wikidocs.adobe.com/wiki/display/coldfusionen/",
@@ -12,5 +13,13 @@
 		"lan_pattern": "en",
 		"doc_url": "",
 		"search_url": "http://cn2.php.net/manual-lookup.php?scope=quickref&pattern="
+	},
+	"search_patterns": {
+		"g": {
+			"pattern": "https://www.google.com/search?hl=${lan:en}&q=$keywork"
+		},
+		"st": {
+			"pattern": "http://stackoverflow.com/search?tab=relevance&q=$keywork"
+		}
 	}
 }
