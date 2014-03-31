@@ -53,7 +53,7 @@ You Should pre-define the source via Preferences->Package Settings->Quick Docs L
 Settings - User
 
 ## Settings
-Here are a demo
+Here is a demo
 ```
 {
 	// The following source will be used when plug-in could not find a specific source base on current environment
