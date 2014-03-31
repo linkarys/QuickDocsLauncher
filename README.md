@@ -15,8 +15,9 @@ You can install it via Package Control or install manually as follow:
 
 - Place the cursor around or select the tag/function to be searched/loaded
 - Use shift + alt + h to load the doc page for specific tag/function directly
-- Use ctrl + alt + s to perform an search operation against specific word
-- Use alt + shift + ; to open the quick search panel and use the following syntax to perform search
+- Use shift + alt+ s  to perform an search operation against specific word
+- Use shift + alt + ; to open the quick search panel and use the following syntax to perform search
+
 	```bash
 	search engine arg:value [arg:value ...] keyword
 	```
@@ -53,7 +54,7 @@ You Should pre-define the source via Preferences->Package Settings->Quick Docs L
 Settings - User
 
 ## Settings
-Here are a demo
+Here is a demo
 ```
 {
 	// The following source will be used when plug-in could not find a specific source base on current environment
