@@ -1,25 +1,35 @@
 {
+	"default": "https://www.google.com/search?q=",
 	"python": {
-		"doc_url": "http://docs.python.org/%s/library/",
-		"search_url": "http://docs.python.org/%s/search.html?check_keywords=yes&area=default&q=%s",
-		"edition": "3.4",
-		"search_pattern": "http://docs.python.org/${edition:3.4}/search.html?check_keywords=yes&area=default&q=$keywork"
+		"doc_url": "http://docs.python.org/3.4/library/",
+		"search_url": "http://docs.python.org/3.4/search.html?check_keywords=yes&area=default&q=",
 	},
 	"cfscript": {
 		"doc_url": "https://wikidocs.adobe.com/wiki/display/coldfusionen/",
 		"search_url": "https://wikidocs.adobe.com/wiki/dosearchsite.action?where=coldfusionen&search-filter-button=Filter&queryString="
 	},
 	"php": {
-		"lan_pattern": "en",
 		"doc_url": "",
 		"search_url": "http://cn2.php.net/manual-lookup.php?scope=quickref&pattern="
 	},
 	"search_patterns": {
 		"g": {
-			"pattern": "https://www.google.com/search?hl=${lan:en}&q=$keywork"
+			"pattern": "https://www.google.com/search?hl=${l:en}&q="
+		},
+		"py": {
+			"pattern": "http://docs.python.org/${e:3.4}/search.html?check_keywords=yes&area=default&q="
 		},
 		"st": {
-			"pattern": "http://stackoverflow.com/search?tab=relevance&q=$keywork"
+			"pattern": "http://stackoverflow.com/search?tab=relevance&q="
+		},
+		"php": {
+			"pattern": "http://cn2.php.net/manual-lookup.php?scope=quickref&pattern="
+		},
+		"jq": {
+			"pattern": "http://api.jquery.com/?s="
+		},
+		"mdn": {
+			"pattern": "https://developer.mozilla.org/$(l:zh-CN}/search?q="
 		}
 	}
 }

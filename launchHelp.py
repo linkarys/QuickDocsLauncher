@@ -8,27 +8,52 @@ from html.parser import HTMLParser
 
 class fn:
     settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
-
+    s_patterns = settings.get('search_patterns')
     # match pattern like google lan:en key:python other:ot
-    full_arg = re.compile('^[\w]+([^\S\n]+\w+[^\S\n]*:[^\S\n]*\w+)+[^\S\n]*$')
+    full_arg = re.compile(r'^[\w]+([^\S\n]+\w+[^\S\n]*:[^\S\n]*\w+)+[^\S\n]*$')
     # match pattern like google lan:en key:python other:ot
-    short_arg = re.compile('^[\w]+([^\S\n]+\w+)+[^\S\n]*$')
+    short_arg = re.compile(r'^[\w]+([^\S\n]+\w+)+[^\S\n]*$')
     # match pattern like php
-    single_word = re.compile('^[^\S\n][\w]+[^\S\n]*$')
+    single_word = re.compile(r'^[^\S\n][\w]+[^\S\n]*$')
 
-    baseurl = 'https://www.google.com/search?q='
-
+    arg_pair = re.compile(r'^(\w+):([\w\d.]+)$')
 
     @staticmethod
     def get_url(input):
-        m = fn.full_arg.search(input)
-        if m is None:
-            m = fn.short_arg.match(input)
-            if m is None:
-                m = fn.single_word.match(input)
+        words = input.split()
+        syntax = words.pop(0)
 
-        if m is not None:
-            return (m.groups())
+        def repl_fun(key, val):
+            def repl(matchobj):
+                if matchobj.group(1) == key:
+                    return str(val)
+                return matchobj.group(0)
+            return repl
+
+        def fillin_defaul(matchobj):
+            return matchobj.group(2)
+
+        try:
+            s_pattern = fn.s_patterns[syntax]['pattern']
+            reg_repl = re.compile(r'\$\{\s*([\w\d+]+)\s*:([^\}]+)\}')
+            keyword = []
+            for word in words:
+                match = fn.arg_pair.match(word)
+                if match:
+                    key = match.group(1)
+                    val = match.group(2)
+
+                    print (val)
+                    repl = repl_fun(key, val)
+                    s_pattern = reg_repl.sub(repl, s_pattern)
+                else:
+                    keyword.append(word)
+
+            s_pattern = reg_repl.sub(fillin_defaul, s_pattern)
+            return s_pattern + ' '.join(keyword).replace(' ', '%20')
+
+        except:
+            return fn.settings.get('default', 'https://www.google.com/search?q=') + input.replace(' ', '%20')
 
     @staticmethod
     def get(attr):
@@ -42,77 +67,41 @@ def get_syntax(view):
 def get_word(view):
     return view.substr(view.word( view.sel()[0] ))
 
+def build_url(self, type):
+    keyword = get_word(self.view)
+    syntax = get_syntax(self.view)
+
+    lan_settings = fn.settings.get(syntax)
+
+    if not lan_settings:
+        return fn.settings.get('default', 'https://www.google.com/search?q=') + keyword.replace(' ', '%20')
+
+    if type == 'load':
+        if 'doc_url' in lan_settings:
+            return lan_settings['doc_url'] + keyword.replace(' ', '%20')
+    elif type == 'search':
+        if 'search_url' in lan_settings:
+            return lan_settings['search_url'] + keyword.replace(' ', '%20')
+
+
 class LaunchCfHelpCommand(sublime_plugin.TextCommand):
     def run(self, edit, forward = True):
-
-        url = build_load_url(self)
-
-        # if (len(word.strip())):
-        #     url += word.strip()
+        url = build_load_url(self, 'load')
         webbrowser.open(url)
-        # # print (filename, {'content': text}) for filename, text in list('abbbbc')
-        # # dict((filename, {'content': text}) for filename, text in list('abbbbc'))
-        # language = 'C'
-        # syntax = os.path.join('C++', "{0}.tmLanguage".format(language))
-        # file_loc = os.path.join(sublime.packages_path(), syntax)
-        # print (os.path.exists(file_loc))
-        # sublime.status_message("Gist: GitHub token isn't provided in Gist.sublime-settings file. All other authorization methods is deprecated.")
-def get_lan_settings(self):
-    syntax = get_syntax(self.view)
 
-    return fn.settings.get(syntax)
-
-def build_load_url(self):
-    keyword = get_word(self.view)
-    syntax = get_syntax(self.view)
-
-    lan_settings = fn.settings.get(syntax)
-
-    if 'doc_url' in lan_settings:
-        url = lan_settings['doc_url']
-
-    edition = lan_settings['edition']
-
-    if syntax == 'python':
-        return url % edition
-
-def build_search_url(self):
-
-    keyword = get_word(self.view)
-    syntax = get_syntax(self.view)
-
-    lan_settings = fn.settings.get(syntax)
-
-    if 'search_url' in lan_settings:
-        url = lan_settings['search_url']
-
-    edition = lan_settings['edition']
-
-    if syntax == 'python':
-        return url % (edition, keyword.strip())
 
 class SearchCfDocsCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        url = build_search_url(self)
+        url = build_url(self, 'search')
 
         webbrowser.open(url)
 
-class InputSearchCommand(sublime_plugin.TextCommand):
-
-    def on_done(self, word):
-        print (word)
-    def run(self, edit):
-        url = build_search_url(self)
-
-        webbrowser.open(url)
 
 class SearchInputCommand(sublime_plugin.WindowCommand):
 
     def on_done(self, input):
-       url = fn.get_url(input)
-       # print (url)
-       webbrowser.open(url)
+       webbrowser.open(fn.get_url(input))
 
     def on_change(self, input):
         pass
@@ -121,27 +110,5 @@ class SearchInputCommand(sublime_plugin.WindowCommand):
         pass
 
     def run(self):
-
-        # self.window.show_quick_panel(['xinju', 'yang', 'jiujiu'], self.on_done)
-        self.window.show_input_panel('Search ju for', '', self.on_done, self.on_change, self.on_cancel)
-
-
-        # url = "http://www.baidu.com"
-        # parser = MyHTMLParser()
-        # try:
-        #     with contextlib.closing(urllib.urlopen(url)) as response:
-        #         if response.code == 204:  # No Content
-        #             return None
-        #         else:
-        #             parser.feed(response.read().decode('utf8', 'ignore'))
-        #             view.insert(edit, 0, parser.get_result())
-        #             # return json.loads(response.read().decode('utf8', 'ignore'))
-        # except urllib.HTTPError as err:
-        #     with contextlib.closing(err):
-        #         raise SimpleHTTPError(err.code, err.read())
-        # for link in page.xpath("//a"):
-        #     view.insert(edit, 0, x.text)
-
-        # self.window.show_quick_panel(['abc', 'bac'], self.show)
-
+        self.window.show_input_panel('Search for', '', self.on_done, self.on_change, self.on_cancel)
 
