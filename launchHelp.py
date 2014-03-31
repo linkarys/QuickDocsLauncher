@@ -7,8 +7,6 @@ import os, re
 from html.parser import HTMLParser
 
 class fn:
-    settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
-    s_patterns = settings.get('search_patterns')
     # match pattern like google lan:en key:python other:ot
     full_arg = re.compile(r'^[\w]+([^\S\n]+\w+[^\S\n]*:[^\S\n]*\w+)+[^\S\n]*$')
     # match pattern like google lan:en key:python other:ot
@@ -16,10 +14,13 @@ class fn:
     # match pattern like php
     single_word = re.compile(r'^[^\S\n][\w]+[^\S\n]*$')
 
-    arg_pair = re.compile(r'^(\w+):([\w\d.]+)$')
-
     @staticmethod
     def get_url(input):
+
+        settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
+        s_patterns = settings.get('search_patterns')
+        arg_pair = re.compile(r'^(\w+):([\w\d.]+)$')
+
         words = input.split()
         syntax = words.pop(0)
 
@@ -34,11 +35,11 @@ class fn:
             return matchobj.group(2)
 
         try:
-            s_pattern = fn.s_patterns[syntax]['pattern']
+            s_pattern = s_patterns[syntax]['pattern']
             reg_repl = re.compile(r'\$\{\s*([\w\d+]+)\s*:([^\}]+)\}')
             keyword = []
             for word in words:
-                match = fn.arg_pair.match(word)
+                match = arg_pair.match(word)
                 if match:
                     key = match.group(1)
                     val = match.group(2)
@@ -53,11 +54,7 @@ class fn:
             return s_pattern + ' '.join(keyword)
 
         except:
-            return fn.settings.get('default', 'https://www.google.com/search?q=') + input
-
-    @staticmethod
-    def get(attr):
-        return fn.settings.get(attr, fn.baseurl)
+            return settings.get('default', 'https://www.google.com/search?q=')
 
 def get_syntax(view):
     scope = view.scope_name(view.sel()[0].end())
@@ -71,10 +68,12 @@ def build_url(self, type):
     keyword = get_word(self.view)
     syntax = get_syntax(self.view)
 
-    lan_settings = fn.settings.get(syntax)
+    settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
+
+    lan_settings = settings.get(syntax)
 
     if not lan_settings:
-        return fn.settings.get('default', 'https://www.google.com/search?q=') + keyword
+        return settings.get('default', 'https://www.google.com/search?q=') + keyword
 
     if type == 'load':
         if 'doc_url' in lan_settings:
