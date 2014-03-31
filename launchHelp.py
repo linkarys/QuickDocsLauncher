@@ -50,10 +50,10 @@ class fn:
                     keyword.append(word)
 
             s_pattern = reg_repl.sub(fillin_defaul, s_pattern)
-            return s_pattern + ' '.join(keyword).replace(' ', '%20')
+            return s_pattern + ' '.join(keyword)
 
         except:
-            return fn.settings.get('default', 'https://www.google.com/search?q=') + input.replace(' ', '%20')
+            return fn.settings.get('default', 'https://www.google.com/search?q=') + input
 
     @staticmethod
     def get(attr):
@@ -74,14 +74,14 @@ def build_url(self, type):
     lan_settings = fn.settings.get(syntax)
 
     if not lan_settings:
-        return fn.settings.get('default', 'https://www.google.com/search?q=') + keyword.replace(' ', '%20')
+        return fn.settings.get('default', 'https://www.google.com/search?q=') + keyword
 
     if type == 'load':
         if 'doc_url' in lan_settings:
-            return lan_settings['doc_url'] + keyword.replace(' ', '%20')
+            return lan_settings['doc_url'] + keyword
     elif type == 'search':
         if 'search_url' in lan_settings:
-            return lan_settings['search_url'] + keyword.replace(' ', '%20')
+            return lan_settings['search_url'] + keyword
 
 
 class LaunchCfHelpCommand(sublime_plugin.TextCommand):

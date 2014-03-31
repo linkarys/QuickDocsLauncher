@@ -30,6 +30,9 @@
 		},
 		"mdn": {
 			"pattern": "https://developer.mozilla.org/$(l:zh-CN}/search?q="
+		},
+		"subl": {
+			"pattern": "http://sublime-text-unofficial-documentation.readthedocs.org/${l:en}/latest/search.html?check_keywords=yes&area=default&q="
 		}
 	}
 }
