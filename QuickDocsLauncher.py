@@ -86,7 +86,7 @@ def build_url(self, type):
 
 class LaunchHelpCommand(sublime_plugin.TextCommand):
     def run(self, edit, forward = True):
-        url = build_load_url(self, 'load')
+        url = build_url(self, 'load')
         webbrowser.open(url)
 
 
