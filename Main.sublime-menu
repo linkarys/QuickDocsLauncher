@@ -12,23 +12,23 @@
                 "children":
                 [
                     {
-                        "caption": "CF Docs Launcher",
+                        "caption": "Quick Docs Launcher",
                         "children":
                         [
                             {
-                                "command": "open_file", 
-                                "args": {"file": "${packages}/CFDocsLauncher/CFDocsLauncher.sublime-settings"},
+                                "command": "open_file",
+                                "args": {"file": "${packages}/QuickDocsLauncher/QuickDocsLauncher.sublime-settings"},
                                 "caption": "Settings – Default"
                             },
                             {
-                                "command": "open_file", 
-                                "args": {"file": "${packages}/User/CFDocsLauncher.sublime-settings"},
+                                "command": "open_file",
+                                "args": {"file": "${packages}/User/QuickDocsLauncher.sublime-settings"},
                                 "caption": "Settings – User"
                             },
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/CFDocsLauncher/Default (Windows).sublime-keymap",
+                                    "file": "${packages}/QuickDocsLauncher/Default (Windows).sublime-keymap",
                                     "platform": "Windows"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -36,7 +36,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/CFDocsLauncher/Default (Linux).sublime-keymap",
+                                    "file": "${packages}/QuickDocsLauncher/Default (Linux).sublime-keymap",
                                     "platform": "Linux"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -44,11 +44,35 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/CFDocsLauncher/Default (OSX).sublime-keymap",
+                                    "file": "${packages}/QuickDocsLauncher/Default (OSX).sublime-keymap",
                                     "platform": "OSX"
                                 },
                                 "caption": "Key Bindings – Default"
-                            },                            
+                            },
+                             {
+                                "command": "open_file",
+                                "args": {
+                                    "file": "${packages}/User/Default (Windows).sublime-keymap",
+                                    "platform": "Windows"
+                                },
+                                "caption": "Key Bindings – User"
+                            },
+                            {
+                                "command": "open_file",
+                                "args": {
+                                    "file": "${packages}/User/Default (Linux).sublime-keymap",
+                                    "platform": "Linux"
+                                },
+                                "caption": "Key Bindings – User"
+                            },
+                            {
+                                "command": "open_file",
+                                "args": {
+                                    "file": "${packages}/User/Default (OSX).sublime-keymap",
+                                    "platform": "OSX"
+                                },
+                                "caption": "Key Bindings – User"
+                            },
                             { "caption": "-" }
                         ]
                     }

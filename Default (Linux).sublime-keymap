@@ -1,5 +1,5 @@
 [
-        { "keys": ["shift+alt+h"], "command": "launch_cf_help" },
-        { "keys": ["shift+alt+s"], "command": "search_cf_docs" },
-		{ "keys": ["ctrl+shift+;"], "command": "search_input" }
+        { "keys": ["shift+alt+h"], "command": "launch_help" },
+        { "keys": ["shift+alt+s"], "command": "search_docs" },
+		{ "keys": ["alt+shift+;"], "command": "search_input" }
 ]

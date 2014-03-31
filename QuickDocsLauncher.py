@@ -17,7 +17,7 @@ class fn:
     @staticmethod
     def get_url(input):
 
-        settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
+        settings = sublime.load_settings("QuickDocsLauncher.sublime-settings")
         s_patterns = settings.get('search_patterns')
         arg_pair = re.compile(r'^(\w+):([\w\d.]+)$')
 
@@ -54,7 +54,7 @@ class fn:
             return s_pattern + ' '.join(keyword)
 
         except:
-            return settings.get('default', 'https://www.google.com/search?q=')
+            return settings.get('default', 'https://www.google.com/search?q=') + input
 
 def get_syntax(view):
     scope = view.scope_name(view.sel()[0].end())
@@ -68,12 +68,13 @@ def build_url(self, type):
     keyword = get_word(self.view)
     syntax = get_syntax(self.view)
 
-    settings = sublime.load_settings("CFDocsLauncher.sublime-settings")
+    settings = sublime.load_settings("QuickDocsLauncher.sublime-settings")
+
+
+    if not syntax:
+        return settings.get('default', 'https://www.google.com/search?q=') + keyword
 
     lan_settings = settings.get(syntax)
-
-    if not lan_settings:
-        return settings.get('default', 'https://www.google.com/search?q=') + keyword
 
     if type == 'load':
         if 'doc_url' in lan_settings:
@@ -83,13 +84,13 @@ def build_url(self, type):
             return lan_settings['search_url'] + keyword
 
 
-class LaunchCfHelpCommand(sublime_plugin.TextCommand):
+class LaunchHelpCommand(sublime_plugin.TextCommand):
     def run(self, edit, forward = True):
         url = build_load_url(self, 'load')
         webbrowser.open(url)
 
 
-class SearchCfDocsCommand(sublime_plugin.TextCommand):
+class SearchDocsCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
         url = build_url(self, 'search')
