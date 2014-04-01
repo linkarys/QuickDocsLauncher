@@ -27,9 +27,9 @@ You can install it via Package Control or install manually as follow:
 	```
 	array
 	```
-	- search keyword array by google with language zh:
+	- search keyword array by mdn with language zh-CN and topic javascript:
 	```
-	g l:zh array
+	mdn l:zh-CN t:js array
 	```
 	- search keyword array by python with edition 2.7:
 	```
@@ -37,7 +37,11 @@ You can install it via Package Control or install manually as follow:
 	```
 	- search keyword python array by stackoverflow:
 	```
-	st python array
+	st [python] array
+	```
+	- search sublime packages by https://sublime.wbond.net/:
+	```
+	wb packagename
 	```
 All the available abbr for search engine are:
 - g or nothing for google

@@ -1,5 +1,5 @@
 [
         { "keys": ["shift+alt+h"], "command": "launch_help" },
         { "keys": ["shift+alt+s"], "command": "search_docs" },
-		{ "keys": ["alt+shift+;"], "command": "search_input" }
+		{ "keys": ["shift+alt+;"], "command": "search_input" }
 ]

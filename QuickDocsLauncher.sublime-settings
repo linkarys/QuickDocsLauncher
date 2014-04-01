@@ -31,7 +31,7 @@
 	 *  	"pattern": "http://xxxxx/${keyname:defaultValue}/xxxx?q="
 	 *  }
 	 *
-	 *  The when you type in the input panel (ctrl + shift + ; by default) with
+	 *  The when you type in the input panel (shift + alt + ; by default) with
 	 *  	prefix keyname:val querystring
 	 *  It will launch a search at http://xxxxx/var/xxxx?q=querystring
 	 *  ---------------------------------------------------------------------------
@@ -53,10 +53,16 @@
 			"pattern": "http://api.jquery.com/?s="
 		},
 		"mdn": {
-			"pattern": "https://developer.mozilla.org/$(l:zh-CN}/search?q="
+			"pattern": "https://developer.mozilla.org/${l:en-US}/search?topic=${t:}&q="
+		},
+		"cf": {
+			"pattern": "https://wikidocs.adobe.com/wiki/dosearchsite.action?where=coldfusionen&search-filter-button=Filter&queryString="
 		},
 		"subl": {
 			"pattern": "http://sublime-text-unofficial-documentation.readthedocs.org/${l:en}/latest/search.html?check_keywords=yes&area=default&q="
+		},
+		"wb": {
+			"pattern": "https://sublime.wbond.net/search/"
 		}
 	}
 }

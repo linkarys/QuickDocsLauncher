@@ -19,7 +19,7 @@ class fn:
 
         settings = sublime.load_settings("QuickDocsLauncher.sublime-settings")
         s_patterns = settings.get('search_patterns')
-        arg_pair = re.compile(r'^(\w+):([\w\d.]+)$')
+        arg_pair = re.compile(r'^(\w+):([\w\d.-]*)$')
 
         words = input.split()
         syntax = words.pop(0)
@@ -31,12 +31,12 @@ class fn:
                 return matchobj.group(0)
             return repl
 
-        def fillin_defaul(matchobj):
+        def fillin_default(matchobj):
             return matchobj.group(2)
 
         try:
             s_pattern = s_patterns[syntax]['pattern']
-            reg_repl = re.compile(r'\$\{\s*([\w\d+]+)\s*:([^\}]+)\}')
+            reg_repl = re.compile(r'\$\{\s*([\w\d+]+)\s*:([^\}]*)\}')
             keyword = []
             for word in words:
                 match = arg_pair.match(word)
@@ -44,13 +44,12 @@ class fn:
                     key = match.group(1)
                     val = match.group(2)
 
-                    print (val)
                     repl = repl_fun(key, val)
                     s_pattern = reg_repl.sub(repl, s_pattern)
                 else:
                     keyword.append(word)
 
-            s_pattern = reg_repl.sub(fillin_defaul, s_pattern)
+            s_pattern = reg_repl.sub(fillin_default, s_pattern)
             return s_pattern + ' '.join(keyword)
 
         except:
