@@ -63,6 +63,12 @@
 		},
 		"wb": {
 			"pattern": "https://sublime.wbond.net/search/"
+		},
+		"git": {
+			"pattern": "https://github.com/search?ref=cmdform&q="
+		},
+		"gist": {
+			"pattern": "https://gist.github.com/search?q="
 		}
 	}
 }

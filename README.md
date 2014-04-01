@@ -18,31 +18,35 @@ You can install it via Package Control or install manually as follow:
 - Use shift + alt+ s  to perform an search operation against specific word
 - Use shift + alt + ; to open the quick search panel and use the following syntax to perform search
 
-	```bash
-	search engine arg:value [arg:value ...] keyword
-	```
+------
+## About Quick search
 
-	e.g.
-	- search keyword array by google:
-	```
-	array
-	```
-	- search keyword array by mdn with language zh-CN and topic javascript:
-	```
-	mdn l:zh-CN t:js array
-	```
-	- search keyword array by python with edition 2.7:
-	```
-	py e:2.7 array
-	```
-	- search keyword python array by stackoverflow:
-	```
-	st [python] array
-	```
-	- search sublime packages by https://sublime.wbond.net/:
-	```
-	wb packagename
-	```
+### Syntax
+```bash
+search engine arg:value [arg:value ...] keyword
+```
+
+### Example
+- search keyword array by google:
+```
+array
+```
+- search keyword array by mdn with language zh-CN and topic javascript:
+```
+mdn l:zh-CN t:js array
+```
+- search keyword array by python with edition 2.7:
+```
+py e:2.7 array
+```
+- search keyword python array by stackoverflow:
+```
+st [python] array
+```
+- search sublime packages by https://sublime.wbond.net/:
+```
+wb packagename
+```
 
 ------
 All the available abbr for search engine are:
@@ -55,6 +59,8 @@ All the available abbr for search engine are:
 - subl for sublime text
 - wb for wbond
 - cf for coldfusion
+- git for github
+- gist for gist
 
 
 Quick load and quick search action will detect your environment automatically and load or search the on the proper source.
