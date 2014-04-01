@@ -43,6 +43,8 @@ You can install it via Package Control or install manually as follow:
 	```
 	wb packagename
 	```
+
+------
 All the available abbr for search engine are:
 - g or nothing for google
 - py for python
@@ -51,6 +53,8 @@ All the available abbr for search engine are:
 - jq for jquery
 - mdn for mdn
 - subl for sublime text
+- wb for wbond
+- cf for coldfusion
 
 
 Quick load and quick search action will detect your environment automatically and load or search the on the proper source.
@@ -93,7 +97,11 @@ Here is a demo
 	"search_patterns": {
 		"g": {
 			"pattern": "https://www.google.com/search?hl=${l:en}&q="
-		}
+		},
+		"mdn": {
+			"pattern": "https://developer.mozilla.org/${l:en-US}/search?topic=${t:}&q="
+		},
+		...
 	}
 }
 ```
