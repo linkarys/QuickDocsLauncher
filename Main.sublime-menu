@@ -17,7 +17,7 @@
                         [
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/QuickDocsLauncher/QuickDocsLauncher.sublime-settings"},
+                                "args": {"file": "${packages}/Quick Docs Launcher/QuickDocsLauncher.sublime-settings"},
                                 "caption": "Settings – Default"
                             },
                             {
@@ -28,7 +28,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/QuickDocsLauncher/Default (Windows).sublime-keymap",
+                                    "file": "${packages}/Quick Docs Launcher/Default (Windows).sublime-keymap",
                                     "platform": "Windows"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -36,7 +36,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/QuickDocsLauncher/Default (Linux).sublime-keymap",
+                                    "file": "${packages}/Quick Docs Launcher/Default (Linux).sublime-keymap",
                                     "platform": "Linux"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -44,7 +44,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/QuickDocsLauncher/Default (OSX).sublime-keymap",
+                                    "file": "${packages}/Quick Docs Launcher/Default (OSX).sublime-keymap",
                                     "platform": "OSX"
                                 },
                                 "caption": "Key Bindings – Default"
