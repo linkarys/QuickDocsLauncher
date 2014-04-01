@@ -1,6 +1,7 @@
-Quick Docs Launcher
-=======================
+# Quick Docs Launcher
+A plugin for quick load / search any docs
 
+# Features
 * Provides a command for launching a quick search and launch docs base on current environment
 * Quick search anything via input panel
 
