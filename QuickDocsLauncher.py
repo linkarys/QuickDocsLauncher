@@ -69,11 +69,10 @@ def build_url(self, type):
 
     settings = sublime.load_settings("QuickDocsLauncher.sublime-settings")
 
+    lan_settings = settings.get(syntax) if syntax else None
 
-    if not syntax:
+    if not lan_settings:
         return settings.get('default', 'https://www.google.com/search?q=') + keyword
-
-    lan_settings = settings.get(syntax)
 
     if type == 'load':
         if 'doc_url' in lan_settings:

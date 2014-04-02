@@ -1,0 +1,14 @@
+[
+    {
+        "caption": "Quick Docs: Launch docs on current word",
+        "command": "launch_help"
+    },
+    {
+        "caption": "Quick Docs: Search docs on current word",
+        "command": "search_docs"
+    },
+    {
+        "caption": "Quick Docs: Search via input pannel",
+        "command": "search_input"
+    },
+]
