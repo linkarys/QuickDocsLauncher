@@ -51,7 +51,8 @@ search sublime packages on https://sublime.wbond.net/:
 <img src="https://raw.githubusercontent.com/linkarys/img/master/QuickDocsLauncher/wb.png" alt="wb" width="525" height="34">
 
 ------
-All the available abbr for search engine are:
+
+### Some available abbr for search engine are:
 - g or nothing for google
 - py for python
 - php for php
