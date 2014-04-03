@@ -16,12 +16,13 @@ You can install it via Package Control or install manually as follow:
 ## Usage
 
 - Place the cursor around or select the tag/function to be searched/loaded
-- Use shift + alt + h to load the doc page for specific tag/function directly
-- Use shift + alt+ s  to perform an search operation against specific word
-- Use shift + alt + ; to open the quick search panel and use the following syntax to perform search
+- Use `shift + alt + h` to load the doc page for specific tag/function directly
+- Use `shift + alt+ s`  to perform an search operation against specific word
+- Use `shift + alt + ;` to open the input panel and use the following syntax to perform search
 
 ------
 ## About Quick search
+Use `shift + alt + ; ` (or `ctrl + shift + p` on windows, `cmd + shift + p` on mac and select "Search via input panel" to open input panel
 
 ### Syntax
 ```bash
@@ -29,26 +30,25 @@ search engine arg:value [arg:value ...] keyword
 ```
 
 ### Example
-- search keyword array by google:
-```
-array
-```
-- search keyword array by mdn with language zh-CN and topic javascript:
-```
-mdn l:zh-CN t:js array
-```
-- search keyword array by python with edition 2.7:
-```
-py e:2.7 array
-```
-- search keyword python array by stackoverflow:
-```
-st [python] array
-```
-- search sublime packages by https://sublime.wbond.net/:
-```
-wb packagename
-```
+search array by google:
+
+<img src="https://raw.githubusercontent.com/linkarys/img/master/QuickDocsLauncher/array.png" alt="array" width="525" height="34">
+
+search array on mdn with language zh-CN and topic javascript:
+
+<img src="https://raw.githubusercontent.com/linkarys/img/master/QuickDocsLauncher/mdn.png" alt="mdn" width="525" height="34">
+
+search array on python official docs within edition 2.7:
+
+<img src="https://raw.githubusercontent.com/linkarys/img/master/QuickDocsLauncher/py.png" alt="py" width="525" height="34">
+
+search array on stackoverflow within topic python:
+
+<img src="https://raw.githubusercontent.com/linkarys/img/master/QuickDocsLauncher/st.png" alt="st" width="525" height="34">
+
+search sublime packages on https://sublime.wbond.net/:
+
+<img src="https://raw.githubusercontent.com/linkarys/img/master/QuickDocsLauncher/wb.png" alt="wb" width="525" height="34">
 
 ------
 All the available abbr for search engine are:
