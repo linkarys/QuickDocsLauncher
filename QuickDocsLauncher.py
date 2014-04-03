@@ -1,10 +1,4 @@
-import sublime, sublime_plugin, webbrowser
-import subprocess
-import urllib.request as urllib
-import contextlib
-import json
-import os, re
-from html.parser import HTMLParser
+import sublime, sublime_plugin, webbrowser, re
 
 def get_url(input):
 
