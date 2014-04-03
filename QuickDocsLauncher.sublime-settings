@@ -40,6 +40,9 @@
 		"g": {
 			"pattern": "https://www.google.com/search?hl=${l:en}&q="
 		},
+		"gt": {
+			"pattern": "https://translate.google.com/?hl=en&tab=wT#auto/${to:zh-CN}/"
+		},
 		"py": {
 			"pattern": "http://docs.python.org/${e:3.4}/search.html?check_keywords=yes&area=default&q="
 		},

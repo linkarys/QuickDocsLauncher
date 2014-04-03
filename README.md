@@ -53,17 +53,18 @@ search sublime packages on https://sublime.wbond.net/:
 ------
 
 ### Some available abbr for search engine are:
-- g or nothing for google
-- py for python
-- php for php
-- st for stackoverflow
-- jq for jquery
-- mdn for mdn
-- subl for sublime text
-- wb for wbond
-- cf for coldfusion
-- git for github
-- gist for gist
+- `g` or nothing for google
+- `py` for python
+- `php` for php
+- `st` for stackoverflow
+- `jq` for jquery
+- `mdn` for mdn
+- `subl` for sublime text
+- `wb` for wbond
+- `cf` for coldfusion
+- `git` for github
+- `gist` for gist
+- `gt` for google translate
 
 
 Quick load and quick search action will detect your environment automatically and load or search the on the proper source.
