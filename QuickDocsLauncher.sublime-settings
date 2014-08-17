@@ -1,6 +1,7 @@
 {
 	// The following source will be used when plug-in could not find a specific source base on current environment
-	"default": "https://www.google.com/search?q=",
+	"default_search_engine": "https://www.google.com/search?q=",
+	"default_site": "http://devdocs.io/",
 
 	/**
 	 * Use of quick launch and quick search
@@ -72,6 +73,9 @@
 		},
 		"gist": {
 			"pattern": "https://gist.github.com/search?q="
+		},
+		"dev": {
+			"pattern": "http://devdocs.io/${t:/}/"
 		}
 	}
 }

@@ -40,36 +40,57 @@ def get_url(input):
     except:
         return settings.get('default', 'https://www.google.com/search?q=') + input
 
+# get syntax of current dev
 def get_syntax(view):
-    scope = view.scope_name(view.sel()[0].end())
-    res = re.search('\\bsource\\.([a-z+\-]+)', scope)
-    return res.group(1) if res else None
+    scope = view.scope_name( view.sel()[0].end() )
+    res = re.search( '\\bsource\\.([a-z+\-]+)', scope )
+    return syntax_mapping( res.group(1) ) if res else None
 
+def syntax_mapping(ext):
+    mappings = {
+        'js': 'javascript'
+    }
+
+    return mappings[ext] if ext in mappings else ext
+
+# get word around current cursor
 def get_word(view):
-    return view.substr(view.word( view.sel()[0] ))
+    return view.substr( view.word( view.sel()[0] ) )
 
+#
 def build_url(self, type):
     keyword = get_word(self.view)
     syntax = get_syntax(self.view)
 
     settings = sublime.load_settings("QuickDocsLauncher.sublime-settings")
 
-    lan_settings = settings.get(syntax) if syntax else None
+    if syntax:
+        default_site = settings.get('default_site')
+        lan_settings = settings.get(syntax)
 
-    if not lan_settings:
-        return settings.get('default', 'https://www.google.com/search?q=') + keyword
+        if type == 'load':
+            if lan_settings and 'doc_url' in lan_settings:
+                return lan_settings['doc_url'] + keyword
+            else:
+                return default_site + syntax + '/' + keyword
 
-    if type == 'load':
-        if 'doc_url' in lan_settings:
-            return lan_settings['doc_url'] + keyword
-    elif type == 'search':
-        if 'search_url' in lan_settings:
-            return lan_settings['search_url'] + keyword
+        elif type == 'search':
+            if lan_settings and 'search_url' in lan_settings:
+                return lan_settings['search_url'] + keyword
+            else:
+                return settings.get('default_search_engine') + keyword
+
+    else:
+        return settings.get('default_search_engine') + keyword
+
 
 
 class LaunchHelpCommand(sublime_plugin.TextCommand):
+
     def run(self, edit, forward = True):
         url = build_url(self, 'load')
+        print( get_syntax( self.view ) )
+        print( url )
         webbrowser.open(url)
 
 
@@ -77,7 +98,8 @@ class SearchDocsCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
         url = build_url(self, 'search')
-
+        print( get_syntax( self.view ) )
+        print( url )
         webbrowser.open(url)
 
 
