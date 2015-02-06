@@ -7,7 +7,7 @@ def get_url(input):
     arg_pair = re.compile(r'^(\w+):([\w\d.-]*)$')
 
     words = input.split()
-    syntax = words.pop(0)
+    pattern = words.pop(0)
 
     def repl_fun(key, val):
         def repl(matchobj):
@@ -19,8 +19,9 @@ def get_url(input):
     def fillin_default(matchobj):
         return matchobj.group(2)
 
+    # build search url with given params, if fail search by devdocs by default
     try:
-        s_pattern = s_patterns[syntax]['pattern']
+        s_pattern = s_patterns[pattern]['pattern']
         reg_repl = re.compile(r'\$\{\s*([\w\d+]+)\s*:([^\}]*)\}')
         keyword = []
         for word in words:
@@ -38,7 +39,7 @@ def get_url(input):
         return s_pattern + ' '.join(keyword)
 
     except:
-        return settings.get('default', 'https://www.google.com/search?q=') + input
+        return settings.get('default_site', 'http://devdocs.io/#q=') + input.replace(' ', '%20')
 
 # get syntax of current dev
 def get_syntax(view):
@@ -46,6 +47,7 @@ def get_syntax(view):
     res = re.search( '\\bsource\\.([a-z+\-]+)', scope )
     return syntax_mapping( res.group(1) ) if res else None
 
+# map to syntax shorthand to full name
 def syntax_mapping(ext):
     mappings = {
         'js': 'javascript'
@@ -57,7 +59,7 @@ def syntax_mapping(ext):
 def get_word(view):
     return view.substr( view.word( view.sel()[0] ) )
 
-#
+# build the search/load url
 def build_url(self, type):
     keyword = get_word(self.view)
     syntax = get_syntax(self.view)
@@ -72,7 +74,7 @@ def build_url(self, type):
             if lan_settings and 'doc_url' in lan_settings:
                 return lan_settings['doc_url'] + keyword
             else:
-                return default_site + syntax + '/' + keyword
+                return default_site + keyword
 
         elif type == 'search':
             if lan_settings and 'search_url' in lan_settings:
@@ -83,30 +85,25 @@ def build_url(self, type):
     else:
         return settings.get('default_search_engine') + keyword
 
-
-
+# search via quick launch command
 class LaunchHelpCommand(sublime_plugin.TextCommand):
 
     def run(self, edit, forward = True):
         url = build_url(self, 'load')
-        print( get_syntax( self.view ) )
-        print( url )
         webbrowser.open(url)
 
-
+# search via quick search command
 class SearchDocsCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
         url = build_url(self, 'search')
-        print( get_syntax( self.view ) )
-        print( url )
         webbrowser.open(url)
 
-
+# search via input panel
 class SearchInputCommand(sublime_plugin.WindowCommand):
 
     def on_done(self, input):
-       webbrowser.open(get_url(input))
+        webbrowser.open(get_url(input))
 
     def on_change(self, input):
         pass
