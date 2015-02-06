@@ -1,4 +1,5 @@
 # Quick Docs Launcher
+* Inspired by [SublimeText2CfQuickDocsLauncher](https://github.com/DominicWatson/SublimeText2CfQuickDocsLauncher)
 * Provides a command for launching a quick search and launch docs base on current environment
 * Quick search anything via input panel
 
