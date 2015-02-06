@@ -20,7 +20,8 @@ You can install it via Package Control or install manually as follow:
 - Use `shift + alt+ s`  to perform an search operation against specific word
 - Use `shift + alt + ;` to open the input panel and use the following syntax to perform search
 
-------
+--
+
 ## About Quick search
 Use `shift + alt + ; ` (or `ctrl + shift + p` on windows, `cmd + shift + p` on mac and select "Search via input panel" to open input panel
 
@@ -64,6 +65,7 @@ search sublime packages on https://sublime.wbond.net/:
 - `cf` for coldfusion
 - `git` for github
 - `gist` for gist
+- `dev` for devdoc
 - `gt` for google translate
 
 
@@ -75,14 +77,17 @@ Settings - User
 Here is a demo
 ```
 {
-	// The following source will be used when plug-in could not find a specific source base on current environment
-	"default": "https://www.google.com/search?q=",
+	// when perform and auick search command, if there isn't source specified already, use the following search engine by default
+	"default_search_engine": "https://www.google.com/search?q=",
+
+	// when perform an quick launch command, if there isn't source specified already, use the following site by default
+	"default_site": "http://devdocs.io/#q=",
 
 	/**
-	 * Use of quick launch and quick search
+	 * Define the urls that used by quick launch and quick search
 	 *
-	 * doc_url is use for quick launch
-	 * search_url is use for quick search
+	 * doc_url is used by quick launch
+	 * search_url is used by quick search
 	 * ---------------------------------------------------------------------------
 	 */
 
@@ -92,18 +97,19 @@ Here is a demo
 	},
 
 	/**
-	 * Use for quick panel search
+	 * Define the search pattern for quick panel search
 	 *
-	 * You should defined the source pattern following the following format:
+	 * The format of the source pattern can be defined as:
 	 *  "prefix": {
 	 *  	"pattern": "http://xxxxx/${keyname:defaultValue}/xxxx?q="
 	 *  }
 	 *
-	 *  The when you type in the input panel (ctrl + shift + ; by default) with
+	 *  Then when you type in the input panel (ctrl + shift + ; by default) with
 	 *  	prefix keyname:val querystring
 	 *  It will launch a search at http://xxxxx/var/xxxx?q=querystring
 	 *  ---------------------------------------------------------------------------
 	 */
+
 	"search_patterns": {
 		"g": {
 			"pattern": "https://www.google.com/search?hl=${l:en}&q="
